@@ -1,0 +1,9 @@
+.Default-panel {
+    box-shadow: 0px 0px 50px 0px rgb(0 0 0 / 20%);
+    padding: 12px;
+    border-radius: 12px;
+    width: 50%;
+    margin: 100px auto;
+    font-size: 2.0rem;
+    background: #2e0f7a;
+}
