@@ -41,7 +41,7 @@ class Tabata extends React.Component {
       hours: 0,
       minutes: 0,
       seconds: 0,
-      break: {
+      rest: {
         formatedTime: '',
         currentTime: '',
         hours: 0,
@@ -54,20 +54,16 @@ class Tabata extends React.Component {
   }
 
   render() {
-    console.log(this.state);
-
     this.onConvertToSeconds = () => parseInt((this.state.hours * 60) * 60) + parseInt(this.state.minutes * 60) + parseInt(this.state.seconds);
-    this.onConvertToBreakSeconds = () => parseInt((this.state.break.hours * 60) * 60) + parseInt(this.state.break.minutes * 60) + parseInt(this.state.break.seconds);
+    this.onConvertToBreakSeconds = () => parseInt((this.state.rest.hours * 60) * 60) + parseInt(this.state.rest.minutes * 60) + parseInt(this.state.rest.seconds);
     
     this.onConvertToTime = (input = null) =>  {
-      console.log(this.onConvertToSeconds(),"Time Calc");
       let dateTime = new Date(null);
       dateTime.setSeconds((input) ? input : this.onConvertToSeconds()); // specify value of SECONDS
       return dateTime.toISOString().substr(11, 8);
     }
 
     this.onConvertToBreakTime = (input = null) =>  {
-      console.log(this.onConvertToBreakSeconds(),"Time Calc");
       let dateTime = new Date(null);
       dateTime.setSeconds((input) ? input : this.onConvertToBreakSeconds()); // specify value of SECONDS
       return dateTime.toISOString().substr(11, 8);
@@ -86,12 +82,12 @@ class Tabata extends React.Component {
     }
 
     this.onStopTimer = () => {
-      let b = this.state.break;
+      let b = this.state.rest;
       b.currentTime = 0.0;
       this.setState({
         status: 'inactive',
         currentTime: 0.0,
-        break: b
+        rest: b
       });
     }
 
@@ -103,12 +99,12 @@ class Tabata extends React.Component {
 
     this.onStartTiming = () => {
       const timeInSeconds = 0;
-      let b = this.state.break;
+      let b = this.state.rest;
       b.currentTime = timeInSeconds;
       this.setState({
         status: 'timing',
         currentTime: timeInSeconds,
-        break: b
+        rest: b
       });
       this.TimerTickTock(true);
     }
@@ -132,36 +128,36 @@ class Tabata extends React.Component {
     }
 
     this.onSetBreakHours = (val) => {
-      let b = this.state.break;
+      let b = this.state.rest;
       b.hours = val;
 
       // Please do not use state like this, make sure you change it before
       // submitting. This may actually not be the current state.
       this.setState({
-        break: b
+        rest: b
       });
     }
 
     this.onSetBreakMinutes = (val) => {
-      let b = this.state.break;
+      let b = this.state.rest;
       b.minutes = val;
 
       // Please do not use state like this, make sure you change it before
       // submitting. This may actually not be the current state.
       this.setState({
-        break: b
+        rest: b
       });
     }
 
     this.onSetBreakSeconds = (val) => {
-      const h = this.state.break.hours;
-      const m = this.state.break.minutes;
+      const h = this.state.rest.hours;
+      const m = this.state.rest.minutes;
       const s = val;
 
       // Please do not use state like this, make sure you change it before
       // submitting. This may actually not be the current state.
       this.setState({
-        break: {
+        rest: {
           hours: h,
           minutes: m,
           seconds: s,
@@ -205,7 +201,7 @@ class Tabata extends React.Component {
       if (this.state.status !== 'timing' && !startOnCurrentThread) return;
 
       setTimeout(()=>{
-        let b = this.state.break;
+        let b = this.state.rest;
         let newTime = b.currentTime + 1.0;
         const formatedTime = this.onConvertToBreakTime(newTime);
 
@@ -213,7 +209,7 @@ class Tabata extends React.Component {
         b.formatedTime = formatedTime;
         
         this.setState({          
-          break:b
+          rest:b
         });
         if ((this.onConvertToBreakSeconds() > newTime)) {
           this.TimerBreakTickTock();
@@ -226,7 +222,7 @@ class Tabata extends React.Component {
               rounds: newRounds,
               currentTime: newTime,
               formatedTime: formatedTime,
-              break: b
+              rest: b
           });
           this.TimerTickTock();
         }
@@ -261,7 +257,7 @@ class Tabata extends React.Component {
             {this.state.rounds}
           </div>
           <div className='StopWatch'>
-            {(this.state.workflow === 'Workout Timer') ? this.state.formatedTime : this.state.break.formatedTime}
+            {(this.state.workflow === 'Workout Timer') ? this.state.formatedTime : this.state.rest.formatedTime}
             <SoundEffect isPlaying={this.onTriggerSound()} />
           </div>
           <AnchorButton name='Pause' onClick={this.onPauseTimer} />

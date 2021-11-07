@@ -35,7 +35,6 @@ class Countdown extends React.Component {
   }
 
   render() {
-    // console.log(this.state);
     const { hours, minutes, seconds } = this.state;
 
     this.onStartTimer = () => {

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Options from "../Inputs/Options";
-import Input from "../Inputs/Input";
 import AnchorButton from "../buttons/AnchorButton";
 
 const Title = styled.div`
@@ -18,8 +17,8 @@ class DisplayRounds extends React.Component {
                     <Options options={[...Array(60).keys()]} onChange={this.props.onSetMinutes} name='Minutes' />
                     <Options options={[...Array(60).keys()]} onChange={this.props.onSetSeconds} name='Seconds' />
                 </div>
-                <div className='Preview'>
-                <Input onChange={this.props.onSetRounds} placeholder='Number of Rounds' />
+                <div className='Preview Small'>
+                    <Options options={[...Array(11).keys()]} onChange={this.props.onSetRounds} name='Rounds' />
                 </div>
                 <div className='Preview'>
                     {this.props.onConvertToTime()}
