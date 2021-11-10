@@ -1,9 +1,10 @@
 import React from "react";
+const server = "https://raw.githubusercontent.com/prof-tejera/assignment-2-ROK862/main/src/audio/";
 const clips = {
-  onClick: "https://raw.githubusercontent.com/prof-tejera/assignment-2-ROK862/main/src/audio/goalVolume01.wav",
-  paused: "https://raw.githubusercontent.com/prof-tejera/assignment-2-ROK862/main/src/audio/goalVolume02.wav",
-  timing: "https://raw.githubusercontent.com/prof-tejera/assignment-2-ROK862/main/src/audio/goalVolume03.wav",
-  default: "https://raw.githubusercontent.com/prof-tejera/assignment-2-ROK862/main/src/audio/goalVolume01.wav",
+  onClick: `${server}goalVolume01.mp3`,
+  paused: `${server}goalVolume02.mp3`,
+  timing: `${server}goalVolume03.mp3`,
+  default: `${server}goalVolume01.mp3`,
 };
 
 // I am no longer using Hawler due to problems while getting 

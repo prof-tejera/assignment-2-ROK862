@@ -12,7 +12,13 @@ module.exports.sys.onConvertToSeconds = ({hours, minutes, seconds}) => parseInt(
 module.exports.sys.onConvertToTime = ({input, hours, minutes, seconds}) =>  {
   let dateTime = new Date(null);
   dateTime.setSeconds((input) ? input : module.exports.sys.onConvertToSeconds({hours, minutes, seconds})); // specify value of SECONDS
-  return dateTime.toISOString().substr(11, 8);
+  let timeVal = "";
+  try{
+    timeVal = dateTime.toISOString().substr(11, 8);
+  } catch (ex) {
+    timeVal = "00:00:00";
+  }
+  return timeVal;
 }
 
 // Helper Methods

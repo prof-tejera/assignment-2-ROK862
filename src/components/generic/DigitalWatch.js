@@ -9,19 +9,19 @@ function DigitalWatch (props) {
             <Options
               options={[...Array(24).keys()]}
               onChange={props.onSetHours}
-              current={props.currentValues.hours}
+              current={props.currentValues.hours || 0}
               name="Hours"
             />
             <Options
               options={[...Array(60).keys()]}
               onChange={props.onSetMinutes}
-              current={props.currentValues.minutes}
+              current={props.currentValues.minutes || 0}
               name="Minutes"
             />
             <Options
               options={[...Array(60).keys()]}
               onChange={props.onSetSeconds}
-              current={props.currentValues.seconds}
+              current={props.currentValues.seconds || 0}
               name="Seconds"
             />
           </div>

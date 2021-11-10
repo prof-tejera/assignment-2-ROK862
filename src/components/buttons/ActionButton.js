@@ -12,15 +12,14 @@ const getClassName = (input) => {
   return 'Default-Action-Button';
 }
 
-const getOnClick = (input) => {
-  if (input) return input;
+const defaultButtonAction = (input) => {
   return ()=>console.log('Default button action.');
 }
 
 class ActionButton extends React.Component {
 
   render() {
-    return <button className={getClassName(this.props.theme)} onClick={getOnClick(this.props.onClick)}>{getButtonTitle(this.props.name)}</button>;
+    return <button className={getClassName(this.props.theme)} onClick={this.props.onClick || defaultButtonAction}>{getButtonTitle(this.props.name)}</button>;
   }
 }
 

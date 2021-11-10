@@ -6,7 +6,7 @@ function PauseDisplay(props) {
     <div className="Content-Wraper">
       <div className="StopWatch">{props.displayTime}</div>
       <AnchorButton name="Resume Timer" onClick={props.onResumeTimer} />
-      <AnchorButton name="End Timer" onClick={props.onCloseTimer} />
+      <AnchorButton name="Reset Timer" onClick={props.onCloseTimer} />
     </div>
   );
 }

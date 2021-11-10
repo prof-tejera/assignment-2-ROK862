@@ -128,10 +128,9 @@ const Countdown = () => {
         );
       case "complete":
         return (
-          <TimerDisplay
-            onPauseTimer={() => setTimerStatus("paused")}
-            formatedTime={formatedTime}
-          />
+         <>
+          <div>Concrates, you made it.</div>
+         </>
         );
       default:
         return <div>nothing to render</div>;

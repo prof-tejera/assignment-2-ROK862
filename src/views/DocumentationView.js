@@ -10,6 +10,9 @@ import DisplayBreaks from "../components/generic/DisplayBreaks";
 import DisplayRounds from "../components/generic/DisplayRounds";
 import Input from "../components/Inputs/Input";
 import Options from "../components/Inputs/Options";
+import DisplayWatch from "../components/generic/DigitalWatch";
+import PauseDisplay from "../components/generic/PauseDisplay";
+import TimerDisplay from "../components/generic/TimerDisplay";
 
 const Container = styled.div`
   display: flex;
@@ -133,8 +136,73 @@ class Documentation extends React.Component {
             ]}
           />
           <DocumentComponent 
-            title="Loading spinner "
+            title="Display Break"
             component={<DisplayBreaks onSetHours={(e=1)=>null} onSetMinutes={(e=1)=>null} onSetSeconds={(e=1)=>null} onSetRounds={(e=1)=>null} onConvertToTime={(e=1)=>"00:00:00"} onStartTiming={(e=1)=>null} onStopTimer={(e=1)=>null} />}
+            propDocs={[
+              {
+                prop: "name",
+                description: "Timer title.",
+                type: "string",
+                defaultValue: "Title",
+              },{
+                prop: "onSetHours",
+                description: "onSetHours updates parent state once the hours drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onSetMinutes",
+                description: "onSetMinutes updates parent state once the minutes drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onSetSeconds",
+                description: "onSetSeconds updates parent state once the seconds drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onConvertToTime",
+                description: "onConvertToTime gets the display time string from the parent component.",
+                type: "function",
+                defaultValue: "Required",
+              },
+            ]}
+          />
+         
+         <DocumentComponent 
+            title="Display Rounds"
+            component={<DisplayRounds onSetHours={(e=1)=>null} onSetMinutes={(e=1)=>null} onSetSeconds={(e=1)=>null} onSetRounds={(e=1)=>null} onConvertToTime={(e=1)=>"00:00:00"} onStartTiming={(e=1)=>null} onStopTimer={(e=1)=>null} />}
+            propDocs={[
+              {
+                prop: "name",
+                description: "Timer title.",
+                type: "string",
+                defaultValue: "Title",
+              },{
+                prop: "onSetHours",
+                description: "onSetHours updates parent state once the hours drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onSetMinutes",
+                description: "onSetMinutes updates parent state once the minutes drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onSetSeconds",
+                description: "onSetSeconds updates parent state once the seconds drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onConvertToTime",
+                description: "onConvertToTime gets the display time string from the parent component.",
+                type: "function",
+                defaultValue: "Required",
+              },
+            ]}
+          />
+          <DocumentComponent 
+            title="Display Watch"
+            component={<DisplayWatch currentValues={{ hours:0, minutes:0, seconds:0 }} onSetMinutes={(e=1)=>null} onSetSeconds={(e=1)=>null} onSetRounds={(e=1)=>null} onConvertToTime={(e=1)=>"00:00:00"} onStartTiming={(e=1)=>null} onStopTimer={(e=1)=>null} />}
             propDocs={[
               {
                 prop: "onSetHours",
@@ -174,10 +242,51 @@ class Documentation extends React.Component {
               },
             ]}
           />
-         
-         <DocumentComponent 
-            title="Loading spinner "
-            component={<DisplayRounds onSetHours={(e=1)=>null} onSetMinutes={(e=1)=>null} onSetSeconds={(e=1)=>null} onSetRounds={(e=1)=>null} onConvertToTime={(e=1)=>"00:00:00"} onStartTiming={(e=1)=>null} onStopTimer={(e=1)=>null} />}
+          <DocumentComponent 
+            title="Timer Display"
+            component={<TimerDisplay currentValues={{ hours:0, minutes:0, seconds:0 }} onSetHours={(e=1)=>null} onSetMinutes={(e=1)=>null} onSetSeconds={(e=1)=>null} onSetRounds={(e=1)=>null} onConvertToTime={(e=1)=>"00:00:00"} onStartTiming={(e=1)=>null} onStopTimer={(e=1)=>null} />}
+            propDocs={[
+              {
+                prop: "onSetHours",
+                description: "onSetHours updates parent state once the hours drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onSetMinutes",
+                description: "onSetMinutes updates parent state once the minutes drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onSetSeconds",
+                description: "onSetSeconds updates parent state once the seconds drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onSetRounds",
+                description: "onSetRounds updates parent state once the rounds input changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onStartTiming",
+                description: "onStartTiming updates parent state once the start timing button has been clicked.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onSetHours",
+                description: "onSetHours updates parent state once the hours drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "onStopTimer",
+                description: "onStopTimer updates parent state once the Stop Timer button is clicked.",
+                type: "function",
+                defaultValue: "Required",
+              },
+            ]}
+          />
+          <DocumentComponent 
+            title="Puase Display"
+            component={<PauseDisplay currentValues={{ hours:0, minutes:0, seconds:0 }} onSetHours={(e=1)=>null} onSetMinutes={(e=1)=>null} onSetSeconds={(e=1)=>null} onSetRounds={(e=1)=>null} onConvertToTime={(e=1)=>"00:00:00"} onStartTiming={(e=1)=>null} onStopTimer={(e=1)=>null} />}
             propDocs={[
               {
                 prop: "onSetHours",

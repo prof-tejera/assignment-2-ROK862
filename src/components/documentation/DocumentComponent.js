@@ -2,19 +2,20 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-border: 1px solid #dddddd;
-margin: 20px 0px;
-border-radius: 10px;
-box-shadow: 0px 5px 9px 0px #0000003d;
+  border: 1px solid #dddddd;
+  margin: 20px 0px;
+  border-radius: 0px;
+  box-shadow: 0px 5px 9px 0px #0000003d;
+  border-bottom: 2px solid #fe6c85;
 `;
 
 const Container = styled.div`
-justify-content: center;
-    width: auto;
-    height: 100%;
-    overflow: scroll;
-    background: white;
-    padding: 50px;
+  justify-content: center;
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+  background: white;
+  padding: 50px;
 `;
 
 const Title = styled.div`
