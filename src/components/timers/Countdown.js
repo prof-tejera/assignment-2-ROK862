@@ -1,9 +1,10 @@
-import React, { useEffect, useState, componentDidUpdate } from "react";
+import React, { useEffect, useState } from "react";
 import AnchorButton from "../buttons/AnchorButton";
 import { sys } from "../../utils/helpers";
 import DigitalWatch from "../generic/DigitalWatch";
 import TimerDisplay from "../generic/TimerDisplay";
 import PauseDisplay from "../generic/PauseDisplay";
+import { playAudio } from "../../audio/SoundEffect";
 
 const Countdown = () => {
   // I declare values here which are relevent to the component.
@@ -40,7 +41,7 @@ const Countdown = () => {
 
       // Test if the timer has reached its goal.
       if (newTime < 0) {
-        setTimerStatus("complete");
+        onReachedGoal();
         return;
       }
 
@@ -60,10 +61,15 @@ const Countdown = () => {
     // allow trigger once the status changes back to timing.
   }, [currentTime, status]);
 
-  // Hendle Stop Timer button onclick here.
+  const onReachedGoal = () => {
+    setTimerStatus("complete");
+    playAudio({clip:"onClick"});
+  }
+  // Handle Stop Timer button onclick here.
   const onStopTimer = () => {
     setTimerStatus("inactive");
     setCurrentTime(0);
+    playAudio({clip:"onClick"});
   };
 
   // Handle start timing button onclick here.
@@ -71,9 +77,10 @@ const Countdown = () => {
     const timeInSeconds = sys.onConvertToSeconds({ hours, minutes, seconds });
     setTimerStatus("timing");
     setCurrentTime(timeInSeconds);
+    playAudio({clip:"timing"});
   };
 
-  // Manage what the user sees at avery state of the component.
+  // Manage what the user see's at any given state.
   // Useful way to reduce complexity associated with interfaces is to reduce actions
   // into managable steps.
 

@@ -58,17 +58,21 @@ function App() {
     { title: "Now, we need to pace your training.", subTitle: "Take a training session with breaks across measurable intervals.", C: <Tabata />, S:APP_RENDER_STATES.TABATA },
   ];
 
+
+  // Mmm. Seem's as though react doesnt like it when i map through an array and generate html components without a {key}.
+  // React needs a point of reference to track changes when it does updates.
+  // Hence, i added keys to elements and basically manage them with an index.
   return (
     <>
       <Timers>
-        {timers.map((timer) => (
+        {timers.map((timer,i) => (
           (shouldRender({state:timer.S})) ? 
-          <Timer>
-            <TimerTitle>{timer.title}</TimerTitle>
-            <TimerSubtitle>{timer.subTitle}</TimerSubtitle>
+          <Timer key={`tm_${i}`}>
+            <TimerTitle key={`ttl_${i}`}>{timer.title}</TimerTitle>
+            <TimerSubtitle key={`sbtl_${i}`}>{timer.subTitle}</TimerSubtitle>
             {timer.C}
           </Timer>
-          : <></>
+          : <div key={`empty_${i}`}></div>
         ))}
       </Timers>
       <TimerList>
