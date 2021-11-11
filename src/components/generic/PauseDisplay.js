@@ -1,12 +1,12 @@
 import React from "react";
 import AnchorButton from "../buttons/AnchorButton";
 
-function PauseDisplay(props) {
+function PauseDisplay({displayTime, onResumeTimer, onCloseTimer}) {
   return (
     <div className="Content-Wraper">
-      <div className="StopWatch">{props.displayTime}</div>
-      <AnchorButton name="Resume Timer" onClick={props.onResumeTimer} />
-      <AnchorButton name="Reset Timer" onClick={props.onCloseTimer} />
+      <div className="StopWatch">{displayTime}</div>
+      <AnchorButton name="Resume Timer" onClick={onResumeTimer} />
+      <AnchorButton name="Reset Timer" onClick={onCloseTimer} />
     </div>
   );
 }

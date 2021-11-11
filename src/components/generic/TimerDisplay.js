@@ -1,13 +1,13 @@
 import React from "react";
 import AnchorButton from "../buttons/AnchorButton";
 
-function TimerDisplay (props) {
+function TimerDisplay ({ formatedTime, onPauseTimer }) {
     return (
       <div className="Content-Wraper">
         <div className='StopWatch'>
-          {props.formatedTime}
+          {formatedTime}
         </div>
-        <AnchorButton name='Pause' onClick={props.onPauseTimer} />
+        <AnchorButton name='Pause' onClick={onPauseTimer} />
       </div>
     );
 }

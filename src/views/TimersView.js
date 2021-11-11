@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { sys } from "../utils/helpers";
 
-import Stopwatch from "../components/timers/Stopwatch";
-import Countdown from "../components/timers/Countdown";
-import XY from "../components/timers/XY";
-import Tabata from "../components/timers/Tabata";
+import { APP_TIMERS, shouldRender } from "../globals/Consts";
 
-import { APP_RENDER_STATES, shouldRender } from "../globals/globals";
 
 const Timers = styled.div`
 align-items: center;
@@ -51,12 +48,7 @@ const TimerList = styled.div`
 `;
 
 function App() {
-  const timers = [
-    { title: "Time your training with a stop watch.", subTitle: "Let's get you started with a normal timed session. Time your workout and get feedback from the app in realtime.", C: <Stopwatch />, S:APP_RENDER_STATES.STOPWATCH },
-    { title: "Set a timed goal, and track your progress.", subTitle: "Be proactive! Let's prepare your training session by setting timed goals.", C: <Countdown recId={1} />, S:APP_RENDER_STATES.COUNTDOWN },
-    { title: "Goal driven session, with rounds.", subTitle: "Awesome, now let's take this a step further. Set timed goals with multiple rounds.", C: <XY />, S:APP_RENDER_STATES.XY },
-    { title: "Now, we need to pace your training.", subTitle: "Take a training session with breaks across measurable intervals.", C: <Tabata />, S:APP_RENDER_STATES.TABATA },
-  ];
+  const timers = APP_TIMERS;
 
 
   // Mmm. Seem's as though react doesnt like it when i map through an array and generate html components without a {key}.
@@ -67,12 +59,12 @@ function App() {
       <Timers>
         {timers.map((timer,i) => (
           (shouldRender({state:timer.S})) ? 
-          <Timer key={`tm_${i}`}>
-            <TimerTitle key={`ttl_${i}`}>{timer.title}</TimerTitle>
-            <TimerSubtitle key={`sbtl_${i}`}>{timer.subTitle}</TimerSubtitle>
+          <Timer key={sys.getKey()}>
+            <TimerTitle key={sys.getKey()}>{timer.title}</TimerTitle>
+            <TimerSubtitle key={sys.getKey()}>{timer.subTitle}</TimerSubtitle>
             {timer.C}
           </Timer>
-          : <div key={`empty_${i}`}></div>
+          : <div key={sys.getKey()}></div>
         ))}
       </Timers>
       <TimerList>

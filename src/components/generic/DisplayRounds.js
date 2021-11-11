@@ -7,6 +7,9 @@ const Title = styled.div`
 font-size: 30px;
 `;
 
+
+// TODO: Convert to functional component,
+// TODO: Access getters and setters using context.
 class DisplayRounds extends React.Component {
     render() {
         return (
