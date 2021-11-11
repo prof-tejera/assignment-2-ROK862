@@ -11,7 +11,11 @@ In this assignment, we will start using the foundation we lay in A1 and make our
   - When paused, user can reset back to initial state
   - Ability to "fast forward" (ends the timer)
 
+<<<<<<< HEAD
 - When timer is complete, you can decide how to congratulate the user and allow them to start over
+=======
+- When timer is complete, you can decide how to congratulate the user and allow them to start over or select a different timer
+>>>>>>> origin/main
 
 ## Deliverable
 
