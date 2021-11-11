@@ -30,7 +30,7 @@ function App() {
             </ul>
           </nav>
           <Switch>
-            <Route exact path="/">
+            <Route path="/">
               <TimersView />
             </Route>
             <Route exact path="/docs">
