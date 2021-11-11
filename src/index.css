@@ -200,3 +200,6 @@ solid #e5e5e5;
   left: 0;
   border-right: 5px solid #281654;
 }
+.Timer-Goal-Wraper img {
+  width: 100%;
+}

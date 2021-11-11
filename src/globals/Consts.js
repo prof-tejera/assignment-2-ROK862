@@ -3,6 +3,7 @@ import Countdown from "../components/timers/Countdown";
 import XY from "../components/timers/XY";
 import Tabata from "../components/timers/Tabata";
 
+// Deprecated module. Please ignore for now.
 export const APP_RENDER_STATES = {
   MENU: "Timer Menu",
   TABATA: "TABATA Timer",
@@ -22,8 +23,10 @@ export const APP_TIMERS = [
   { title: "Now, we need to pace your training.", subTitle: "Take a training session with breaks across measurable intervals.", C: <Tabata />, S:APP_RENDER_STATES.TABATA },
 ];
 
+// depricated module, please ignore for now.
+// Code has been moved to AppProvider and is now handled with context.
 export const shouldRender = ({ state }) => {
-  return state === TIMER_REF.RENDER_STATE;
+  return false;
 };
 
 export const setTimerToDisplay = ({timer}) => {

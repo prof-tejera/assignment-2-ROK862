@@ -4,6 +4,7 @@ import DigitalWatch from "../generic/DigitalWatch";
 import TimerDisplay from "../generic/TimerDisplay";
 import PauseDisplay from "../generic/PauseDisplay";
 import { AppContext } from "../../globals/AppProvider";
+import TimerGoal from "../generic/TimerGoal";
 
 const Tabata = () => {
 
@@ -14,7 +15,7 @@ const Tabata = () => {
   const { hours, setHours } = useContext(AppContext);
   const { minutes, setMinutes } = useContext(AppContext);
   const { seconds, setSeconds } = useContext(AppContext);
-  const { formatedTime } = useContext(AppContext);
+  const { formattedTime } = useContext(AppContext);
   const { onStartTiming, onStopTimer } = useContext(AppContext);
 
   // Manage what the user see's at any given state.
@@ -45,7 +46,7 @@ const Tabata = () => {
             onCloseTimer={onStopTimer}
             onPauseTimer={() => setTimerStatus("paused")}
             currentValues={{ hours, minutes, seconds }}
-            displayTime={formatedTime}
+            displayTime={formattedTime}
           />
         );
       case "paused":
@@ -53,21 +54,19 @@ const Tabata = () => {
           <PauseDisplay
             onCloseTimer={onStopTimer}
             onResumeTimer={() => setTimerStatus("timing")}
-            displayTime={formatedTime}
+            displayTime={formattedTime}
           />
         );
       case "timing":
         return (
           <TimerDisplay
             onPauseTimer={() => setTimerStatus("paused")}
-            formatedTime={formatedTime}
+            formattedTime={formattedTime}
           />
         );
       case "complete":
         return (
-         <>
-          <div>Concrates, you made it.</div>
-         </>
+          <TimerGoal />
         );
       default:
         return <div>nothing to render</div>;

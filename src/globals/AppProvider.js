@@ -20,8 +20,8 @@ export const AppContext = React.createContext({
   setBreakSeconds: (val) => {},
   workoutStatus: "",
   setWorkoutStatus: (val) => {},
-  formatedTime: "",
-  setFormatedTime: (val) => {},
+  formattedTime: "",
+  setformattedTime: (val) => {},
   currentTime: "",
   setCurrentTime: (val) => {},
   setOnReachedGoal: () => {},
@@ -29,6 +29,9 @@ export const AppContext = React.createContext({
   onStopTimer: (val) => {},
   workflowState: "Workout",
   setWorkflowState: (val) => {},
+  currentTimer: "COUNTDOWN",
+  setCurrentTimer: (val) => {},
+  shouldRender: (val) => {}
 });
 
 const AppProvider = ({ children }) => {
@@ -40,20 +43,24 @@ const AppProvider = ({ children }) => {
   const [breakMinutes, setBreakMinutes] = useState(0);
   const [breakSeconds, setBreakSeconds] = useState(0);
   const [workoutStatus, setWorkoutStatus] = useState("Workout");
-  const [formatedTime, setFormatedTime] = useState("");
+  const [formattedTime, setformattedTime] = useState("");
   const [currentTime, setCurrentTime] = useState("");
   const [workflowState, setWorkflowState] = useState(
     APP_RENDER_STATES.COUNTDOWN
   );
-  const [currentTimer, setCurrentTimer] = useState("COUNTDOWN");
+  const [currentTimer, setCurrentTimer] = useState(APP_RENDER_STATES.COUNTDOWN);
+
+  const shouldRender = ({ state }) => {
+    return currentTimer === state;
+  }
 
   useEffect(() => {
-    const formatedTime = sys.onConvertToTime({
+    const formattedTime = sys.onConvertToTime({
       hours,
       minutes,
       seconds,
     });
-    setFormatedTime(formatedTime);
+    setformattedTime(formattedTime);
   }, [hours, minutes, seconds]);
 
   // Update constants for timer to render.
@@ -74,7 +81,11 @@ const AppProvider = ({ children }) => {
 
   // Handle start timing button onclick here.
   const onStartTiming = () => {
-    const timeInSeconds = sys.onConvertToSeconds({ hours, minutes, seconds });
+    let timeInSeconds = 0;
+    if (currentTimer === APP_RENDER_STATES.COUNTDOWN) {
+      timeInSeconds = sys.onConvertToSeconds({ hours, minutes, seconds })
+    }
+
     setTimerStatus("timing");
     setCurrentTime(timeInSeconds);
     playAudio({ clip: "timing" });
@@ -92,19 +103,23 @@ const AppProvider = ({ children }) => {
 
     const timeout = setTimeout(() => {
       // TODO: change state to complete once the interval has been reached.
-      const newTime = currentTime - 1.0;
+      const newTime = (currentTimer === APP_RENDER_STATES.COUNTDOWN) ? currentTime - 1.0 : currentTime + 1.0;
+      const target = sys.onConvertToSeconds({ hours, minutes, seconds });
 
       // Test if the timer has reached its goal.
-      if (newTime < 0) {
+      if (newTime < 0 && currentTimer === APP_RENDER_STATES.COUNTDOWN) {
+        onReachedGoal();
+        return;
+      } else if (newTime >= target) {
         onReachedGoal();
         return;
       }
 
       // Set the display time, which is to be use for display in the digital watch display.
-      const formatedTime = sys.onConvertToTime({ input: newTime });
+      const formattedTime = sys.onConvertToTime({ input: newTime });
 
       // Set state values for formated time, and new current time.
-      setFormatedTime(formatedTime);
+      setformattedTime(formattedTime);
       setCurrentTime(newTime);
     }, 1000);
 
@@ -114,7 +129,7 @@ const AppProvider = ({ children }) => {
     };
     // Monitor both the current time and status to alsp
     // allow trigger once the status changes back to timing.
-  }, [currentTime, status]);
+  }, [currentTime, status, currentTimer, hours, minutes, seconds]);
 
   return (
     <AppContext.Provider
@@ -135,15 +150,17 @@ const AppProvider = ({ children }) => {
         setBreakSeconds,
         workoutStatus,
         setWorkoutStatus,
-        formatedTime,
-        setFormatedTime,
+        formattedTime,
+        setformattedTime,
         currentTime,
         setCurrentTime,
         onStartTiming,
         onStopTimer,
         workflowState,
         setWorkflowState,
+        currentTimer,
         setCurrentTimer,
+        shouldRender,
       }}
     >
       {children}

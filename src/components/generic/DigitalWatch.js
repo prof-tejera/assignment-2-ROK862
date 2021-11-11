@@ -1,27 +1,34 @@
 import React from "react";
 import Options from "../Inputs/Options";
 import AnchorButton from "../buttons/AnchorButton";
+import { AppContext } from "../../globals/AppProvider";
+import { useContext } from "react/cjs/react.development";
 
-function DigitalWatch ({displayTime, onStartTiming, onCloseTimer, onSetSeconds, onSetMinutes, onSetHours, currentValues }) {
-    return (
+function DigitalWatch () {
+  // Simplify the code in parent component by getting getters and setters straigt from context
+  // At this level, i think it is still manage-able. However, you'll be the judge of it :).
+  const { formattedTime:displayTime, onStartTiming, onStopTimer:onCloseTimer, setSeconds:onSetSeconds, setMinutes:onSetMinutes, setHours:onSetHours } = useContext(AppContext);
+  const { hours, minutes, seconds } = useContext(AppContext);
+  
+  return (
       <div className="Content-Wraper">
           <div className="StopWatch">
             <Options
               options={[...Array(24).keys()]}
               onChange={onSetHours}
-              current={currentValues.hours || 0}
+              current={hours || 0}
               name="Hours"
             />
             <Options
               options={[...Array(60).keys()]}
               onChange={onSetMinutes}
-              current={currentValues.minutes || 0}
+              current={minutes || 0}
               name="Minutes"
             />
             <Options
               options={[...Array(60).keys()]}
               onChange={onSetSeconds}
-              current={currentValues.seconds || 0}
+              current={seconds || 0}
               name="Seconds"
             />
           </div>

@@ -4,6 +4,7 @@ import DigitalWatch from "../generic/DigitalWatch";
 import TimerDisplay from "../generic/TimerDisplay";
 import PauseDisplay from "../generic/PauseDisplay";
 import { AppContext } from "../../globals/AppProvider";
+import TimerGoal from "../generic/TimerGoal";
 
 const Countdown = () => {
 
@@ -11,12 +12,6 @@ const Countdown = () => {
   // This will work similar to useState. However, all objects are passed down
   // by reference, to the timer component.
   const { status, setTimerStatus } = useContext(AppContext);
-  const { hours, setHours } = useContext(AppContext);
-  const { minutes, setMinutes } = useContext(AppContext);
-  const { seconds, setSeconds } = useContext(AppContext);
-  const { formatedTime } = useContext(AppContext);
-  const { onStartTiming, onStopTimer } = useContext(AppContext);
-
   // Manage what the user see's at any given state.
   // Useful way to reduce complexity associated with interfaces is to reduce actions
   // into managable steps.
@@ -26,6 +21,9 @@ const Countdown = () => {
 
   // Needed to simplify my approuch by breaking down my code into reusable componets.
   // Default state displays [nothing to tender.]
+
+  // I simplified the render state function to reduce the amound of data that is passed back
+  // and forth between children and parent component.
   const renderState = () => {
     switch (status) {
       case "inactive":
@@ -37,37 +35,19 @@ const Countdown = () => {
         );
       case "active":
         return (
-          <DigitalWatch
-            onSetHours={setHours}
-            onSetMinutes={setMinutes}
-            onSetSeconds={setSeconds}
-            onStartTiming={onStartTiming}
-            onCloseTimer={onStopTimer}
-            onPauseTimer={() => setTimerStatus("paused")}
-            currentValues={{ hours, minutes, seconds }}
-            displayTime={formatedTime}
-          />
+          <DigitalWatch />
         );
       case "paused":
         return (
-          <PauseDisplay
-            onCloseTimer={onStopTimer}
-            onResumeTimer={() => setTimerStatus("timing")}
-            displayTime={formatedTime}
-          />
+          <PauseDisplay />
         );
       case "timing":
         return (
-          <TimerDisplay
-            onPauseTimer={() => setTimerStatus("paused")}
-            formatedTime={formatedTime}
-          />
+          <TimerDisplay />
         );
       case "complete":
         return (
-         <>
-          <div>Concrates, you made it.</div>
-         </>
+          <TimerGoal />
         );
       default:
         return <div>nothing to render</div>;
