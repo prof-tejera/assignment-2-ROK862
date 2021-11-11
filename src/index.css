@@ -73,9 +73,7 @@ button.Default-Anchor-Button {
   font-size: 15px;
   border-radius: 15px;
   border: 2px solid white;
-  background: rgb(225,1,255);
-  background: linear-gradient(
-90deg, rgba(225,1,255,1) 0%, rgba(251,0,203,1) 0%, rgba(237,0,121,1) 100%);
+  background: #281654;
 }
 
 button.Default-Anchor-Button:hover {
@@ -165,14 +163,11 @@ button.Default-Action-Button:hover {
   margin-right: 15px;
 }
 .Option-Wraper, .Input-Wraper {
-  background: #ffffff;
+  background: #1e0e46;
   margin-left: 1%;
   padding: 1%;
-  color: black;
+  color: white;
   text-align: center;
-  border: 1
-px
-solid #e5e5e5;
 }
 .Option-Wraper label, .Input-Wraper label {
   font-size: 15px;
@@ -202,4 +197,14 @@ solid #e5e5e5;
 }
 .Timer-Goal-Wraper img {
   width: 100%;
+}
+
+.Rounds-Preview {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.Title-Wraper{
+  padding-top:15px;
+  font-size:15px;
 }

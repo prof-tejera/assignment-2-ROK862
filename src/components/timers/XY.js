@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import AnchorButton from "../buttons/AnchorButton";
-import DigitalWatch from "../generic/DigitalWatch";
+import DigitalRounds from "../generic/DigitalRounds";
 import TimerDisplay from "../generic/TimerDisplay";
 import PauseDisplay from "../generic/PauseDisplay";
 import { AppContext } from "../../globals/AppProvider";
@@ -11,7 +11,7 @@ const XY = () => {
   // Import context getters and setters from the Store,
   // This will work similar to useState. However, all objects are passed down
   // by reference, to the timer component.
-  const { status, setTimerStatus } = useContext(AppContext);
+  const { status, setTimerStatus, currentTimer } = useContext(AppContext);
 
   // Manage what the user see's at any given state.
   // Useful way to reduce complexity associated with interfaces is to reduce actions
@@ -33,7 +33,7 @@ const XY = () => {
         );
       case "active":
         return (
-          <DigitalWatch />
+          <DigitalRounds />
         );
       case "paused":
         return (
@@ -56,7 +56,7 @@ const XY = () => {
   // renderState method to give us an appropriate render based on the current state.
   return (
     <div className={"Default-Pink-Theme"}>
-      <div className="Component-Title">Countdown</div>
+      <div className="Component-Title">{currentTimer}</div>
       {renderState()}
     </div>
   );

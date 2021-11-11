@@ -11,7 +11,7 @@ const StopWatch = () => {
   // Import context getters and setters from the Store,
   // This will work similar to useState. However, all objects are passed down
   // by reference, to the timer component.
-  const { status, setTimerStatus } = useContext(AppContext);
+  const { status, setTimerStatus, currentTimer } = useContext(AppContext);
 
   // Manage what the user see's at any given state.
   // Useful way to reduce complexity associated with interfaces is to reduce actions
@@ -59,7 +59,7 @@ const StopWatch = () => {
   // renderState method to give us an appropriate render based on the current state.
   return (
     <div className={"Default-Pink-Theme"}>
-      <div className="Component-Title">Countdown</div>
+      <div className="Component-Title">{currentTimer}</div>
       {renderState()}
     </div>
   );

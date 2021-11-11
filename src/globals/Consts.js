@@ -12,6 +12,11 @@ export const APP_RENDER_STATES = {
   XY: "XY Timer",
 };
 
+export const APP_FLOW_STATES = {
+  WORKOUT: "Workout Timer",
+  REST: "Rest Timer"
+};
+
 let TIMER_REF = {
   RENDER_STATE: "COUNTDOWN Timer",
 };
