@@ -22,10 +22,10 @@ function App() {
           <nav>
             <ul>
               <li>
-                <Link to="/">Timers</Link>
+                <Link to="/assignment-2-ROK862">Timers</Link>
               </li>
               <li>
-                <Link to="/docs">Documentation</Link>
+                <Link to="/assignment-2-ROK862/doc">Documentation</Link>
               </li>
             </ul>
           </nav>
