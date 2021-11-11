@@ -26,6 +26,9 @@ nav {
   background: #f9f9f9;
   box-shadow: 0 0 10px 0 rgb(0 0 0 / 24%);
   padding: 10px;
+  position: fixed;
+  top: 0px;
+  z-index: 1;
 }
 
 nav ul {
@@ -190,6 +193,7 @@ button.Default-Action-Button:hover {
   display: table;
   width: auto;
   margin: auto;
+  padding-top: 100px;
 }
 .Timer-Goal-Wraper img {
   width: 100%;
@@ -207,4 +211,9 @@ button.Default-Action-Button:hover {
 .Timer-List.inactive {
   pointer-events: none;
   opacity: 0.5;
+}
+.Workflow-Wraper {
+  padding-top: 0;
+  height: 100%;
+  overflow-y: scroll;
 }

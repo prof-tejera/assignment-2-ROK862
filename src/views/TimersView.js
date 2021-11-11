@@ -10,7 +10,6 @@ const Timers = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
   display: inline-block;
 `;
 
@@ -87,6 +86,9 @@ function App() {
           )
         )}
       </Timers>
+      <br />
+      <br />
+      <br />
     </div>
   );
 }
