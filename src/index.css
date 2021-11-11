@@ -187,13 +187,9 @@ button.Default-Action-Button:hover {
   font-weight: bold;
 }
 .Timer-List {
-  box-shadow: 10px 10px 10px #00000030;
-  width: 20%;
-  height: 100%;
-  background: white;
-  position: absolute;
-  left: 0;
-  border-right: 5px solid #281654;
+  display: table;
+  width: auto;
+  margin: auto;
 }
 .Timer-Goal-Wraper img {
   width: 100%;
@@ -207,4 +203,8 @@ button.Default-Action-Button:hover {
 .Title-Wraper{
   padding-top:15px;
   font-size:15px;
+}
+.Timer-List.inactive {
+  pointer-events: none;
+  opacity: 0.5;
 }

@@ -44,22 +44,19 @@ const TimerSubtitle = styled.div`
   padding-top: 15px;
 `;
 
-const TimerList = styled.div`
-display: table;
-width: auto;
-margin: auto;
-`;
-
 function App() {
   const timers = APP_TIMERS;
-  const { setCurrentTimer, shouldRender } = useContext(AppContext);
+  const { setCurrentTimer, shouldRender, status } = useContext(AppContext);
 
-  // Mmm. Seem's as though react doesnt like it when i map through an array and generate html components without a {key}.
+  // Mmm. Seem's as though react doesnt like it when i map through an array and generate components without a {key}.
   // React needs a point of reference to track changes when it does updates.
-  // Hence, i added keys to elements and basically manage them with an index.
+  // Hence, i added keys to mapped comps wich basically gives them a unique index.
+  // Code cab be found in helper.js
+
+  const accessToggle = (status === "timing") ? "inactive" : "active";
   return (
-    <div className="Workflow-Wraper">
-      <TimerList>
+    <div className={`Workflow-Wraper`}>
+      <div className={`Timer-List ${accessToggle}`}>
         <AnchorButton
           name={APP_RENDER_STATES.COUNTDOWN}
           onClick={() => setCurrentTimer(APP_RENDER_STATES.COUNTDOWN)}
@@ -76,7 +73,7 @@ function App() {
           name={APP_RENDER_STATES.XY}
           onClick={() => setCurrentTimer(APP_RENDER_STATES.XY)}
         />
-      </TimerList>
+      </div>
       <Timers>
         {timers.map((timer, i) =>
           shouldRender({ state: timer.S }) ? (

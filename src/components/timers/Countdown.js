@@ -23,7 +23,7 @@ const Countdown = () => {
   // Default state displays [nothing to tender.]
 
   // I simplified the render state function to reduce the amound of data that is passed back
-  // and forth between children and parent component.
+  // and forth between children and parent components.
   const renderState = () => {
     switch (status) {
       case "inactive":

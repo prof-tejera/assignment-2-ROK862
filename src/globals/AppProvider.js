@@ -60,9 +60,7 @@ const AppProvider = ({ children }) => {
   const [workflowState, setWorkflowState] = useState(APP_FLOW_STATES.WORKOUT);
   const [currentTimer, setCurrentTimer] = useState(APP_RENDER_STATES.COUNTDOWN);
 
-  const shouldRender = ({ state }) => {
-    return currentTimer === state;
-  }
+  const shouldRender = ({ state }) => currentTimer === state;
 
   useEffect(() => {
     const formattedTime = sys.onConvertToTime({
@@ -78,6 +76,12 @@ const AppProvider = ({ children }) => {
   // within the context, and it's shared accross the application.
   
   // Hmm, Will think about this approuch.
+
+  /* CHANGE IMPLEMENTED */
+  /*---------------------------------------------------------------------------------------------*/ 
+  // TO-WIT: Changed access to currentTimer. This is now handle with context.
+  // That is, all components access this value from AppContext Provider, instead of const globals.
+  // Notice, the value is still kept in a global const. However, a copy of it is accessable with context.
   useEffect(() => {
     setTimerToDisplay(currentTimer);
   }, [currentTimer]);
@@ -143,7 +147,6 @@ const AppProvider = ({ children }) => {
     if (status !== "timing") return;
 
     const timeout = setTimeout(() => {
-      // TODO: change state to complete once the interval has been reached.
       let newTime = (currentTimer === APP_RENDER_STATES.COUNTDOWN) ? currentTime - 1.0 : currentTime + 1.0;
       
       // Test and return the right timer based on the APP_RENDER_STATES and APP_FLOW_STATES.
