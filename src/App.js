@@ -22,18 +22,18 @@ function App() {
           <nav>
             <ul>
               <li>
-                <Link to="/">Timers</Link>
+                <Link to="/assignment-2-ROK862/">Timers</Link>
               </li>
               <li>
-                <Link to="/docs">Documentation</Link>
+                <Link to="/assignment-2-ROK862/docs">Documentation</Link>
               </li>
             </ul>
           </nav>
           <Switch>
-            <Route path="/">
+            <Route exact path="/assignment-2-ROK862/">
               <TimersView />
             </Route>
-            <Route exact path="/docs">
+            <Route exact path="/assignment-2-ROK862/docs">
               <DocumentationView />
             </Route>
           </Switch>
