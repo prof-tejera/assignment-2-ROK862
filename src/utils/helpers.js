@@ -11,7 +11,7 @@ module.exports.sys.onConvertToSeconds = ({hours, minutes, seconds}) => parseInt(
 // Convert to time string. If we reveive an input, which is already in seconds, there should be no need to do additional calculations.
 module.exports.sys.onConvertToTime = ({input, hours, minutes, seconds}) =>  {
   let dateTime = new Date(null);
-  dateTime.setSeconds((input) ? input : module.exports.sys.onConvertToSeconds({hours, minutes, seconds})); // specify value of SECONDS
+  dateTime.setSeconds(input || module.exports.sys.onConvertToSeconds({hours, minutes, seconds})); // specify value of SECONDS
   let timeVal = "";
   try{
     timeVal = dateTime.toISOString().substr(11, 8);

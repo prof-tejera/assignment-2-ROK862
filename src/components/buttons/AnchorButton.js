@@ -1,22 +1,9 @@
 import React from "react";
-import Helper from "../../utils/helpers";
+import { APP_ICONS } from "../../context/settings"; 
 
-const getButtonTitle = (input) => {
-    if (input) return input;
-    Helper.sys.info(`Hmm, you are missing a title on a button.`);
-    return 'Untitled :)';
-}
-
-const getClassName = (input) => {
-    if (input) return input;
-    return 'Default-Anchor-Button';
-}
-
-class AnchorButton extends React.Component {
-
-  render() {
-    return <button onClick={this.props.onClick} className={getClassName(this.props.theme)}>{getButtonTitle(this.props.name)}</button>;
-  }
+const AnchorButton = ({className, onClick, theme, iconRef, name}) => {
+  const IconRef = APP_ICONS[iconRef];
+  return <button onClick={onClick} className={`Default-Anchor-Button ${className}`}>{IconRef || ""}{name}</button>;
 }
 
 export default AnchorButton;

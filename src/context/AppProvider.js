@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { sys } from "../utils/helpers";
 import { playAudio } from "../audio/SoundEffect";
-import { APP_RENDER_STATES, APP_FLOW_STATES, setTimerToDisplay } from "./Consts";
+import {
+  APP_RENDER_KEYS,
+  APP_FLOW_KEYS,
+  APP_UI_KEYS,
+  setTimerToDisplay,
+  APP_AUDIO_CLIP_KEYS,
+} from "./settings";
 
-
-// Presets for the AppContext. 
+// Presets for the AppContext.
 // This list will grow exponentially as the application grows.
 
 // Still thinking of ways to manage this better.
@@ -35,51 +40,66 @@ export const AppContext = React.createContext({
   onStopTimer: (val) => {},
   workflowState: "Workout",
   setWorkflowState: (val) => {},
-  currentTimer: APP_RENDER_STATES.COUNTDOWN,
+  currentTimer: null,
   setCurrentTimer: (val) => {},
   shouldRender: (val) => {},
-  rounds: 0, 
+  rounds: 0,
   setRounds: (val) => {},
-  onSkipRound: (val) => {}
+  onSkipRound: (val) => {},
+  interfaceState: null,
+  setInterfaceState: () => {},
+  formattedBreakTime: "",
 });
-
 
 // I decided to move all the effects up one level to the global context.
 // That is, all effects will be handled with context. DRY. [ :) ]
 const AppProvider = ({ children }) => {
-  const [status, setTimerStatus] = useState("inactive");
+  const [status, setTimerStatus] = useState("active");
   const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const [rounds, setRounds] = useState(0);
+  const [minutes, setMinutes] = useState(2);
+  const [seconds, setSeconds] = useState(30);
+  const [rounds, setRounds] = useState(5);
   const [breakHours, setBreakHours] = useState(0);
-  const [breakMinutes, setBreakMinutes] = useState(0);
-  const [breakSeconds, setBreakSeconds] = useState(0);
+  const [breakMinutes, setBreakMinutes] = useState(1);
+  const [breakSeconds, setBreakSeconds] = useState(30);
   const [workoutStatus, setWorkoutStatus] = useState("Workout");
   const [formattedTime, setformattedTime] = useState("");
+  const [formattedBreakTime, setformattedBreakTime] = useState("");
   const [currentTime, setCurrentTime] = useState("");
-  const [workflowState, setWorkflowState] = useState(APP_FLOW_STATES.WORKOUT);
-  const [currentTimer, setCurrentTimer] = useState(APP_RENDER_STATES.COUNTDOWN);
+  const [workflowState, setWorkflowState] = useState(APP_FLOW_KEYS.WORKOUT);
+  const [currentTimer, setTimer] = useState(APP_RENDER_KEYS.COUNTDOWN);
+  const [interfaceState, setInterfaceState] = useState(APP_UI_KEYS.FLOW);
+
+  const setCurrentTimer = (e) => {
+    setTimer(e);
+    setTimerStatus("active");
+  };
 
   const shouldRender = ({ state }) => currentTimer === state;
 
   useEffect(() => {
-    const formattedTime = sys.onConvertToTime({
+    const fTime = sys.onConvertToTime({
       hours,
       minutes,
       seconds,
     });
-    setformattedTime(formattedTime);
-  }, [hours, minutes, seconds]);
+    const fdTime = sys.onConvertToTime({
+      hours: breakHours,
+      minutes: breakMinutes,
+      seconds: breakSeconds,
+    });
+    setformattedTime(fTime);
+    setformattedBreakTime(fdTime);
+  }, [hours, minutes, seconds, breakHours, breakMinutes, breakSeconds]);
 
   // Update constants for timer to render.
   // Perhaps not the best approuch, since i have values for currentTimer to display
   // within the context, and it's shared accross the application.
-  
+
   // Hmm, Will think about this approuch.
 
   /* CHANGE IMPLEMENTED */
-  /*---------------------------------------------------------------------------------------------*/ 
+  /*---------------------------------------------------------------------------------------------*/
   // TO-WIT: Changed access to currentTimer. This is now handle with context.
   // That is, all components access this value from AppContext Provider, instead of const globals.
   // Notice, the value is still kept in a global const. However, a copy of it is accessable with context.
@@ -89,15 +109,21 @@ const AppProvider = ({ children }) => {
 
   // Handle Stop Timer button onclick here.
   const onStopTimer = () => {
-    const tempDisTime = sys.onConvertToTime({
+    const fTime = sys.onConvertToTime({
       hours,
       minutes,
       seconds,
     });
+    const fdTime = sys.onConvertToTime({
+      hours: breakHours,
+      minutes: breakMinutes,
+      seconds: breakSeconds,
+    });
     setTimerStatus("inactive");
-    setformattedTime(tempDisTime);
+    setformattedTime(fTime);
+    setformattedBreakTime(fdTime);
     setCurrentTime(0);
-    playAudio({ clip: "onClick" });
+    playAudio({ clip: APP_AUDIO_CLIP_KEYS.ON_STOP_TIMER });
   };
 
   // Handle start timing button onclick here.
@@ -105,50 +131,70 @@ const AppProvider = ({ children }) => {
     // Time in seconds for main timer
     const tis = sys.onConvertToSeconds({ hours, minutes, seconds });
     // Time in seconds for break timer.
-    const btis = sys.onConvertToSeconds({ breakHours, breakMinutes, breakSeconds });
+    const btis = sys.onConvertToSeconds({
+      hours: breakHours,
+      minutes: breakMinutes,
+      seconds: breakSeconds,
+    });
 
     // Validation of inputs for all components.
     if (tis === 0) {
-      alert("Please make sure you set the time limits before continuing.")
+      alert("Please make sure you set the time limits before continuing.");
       return;
-    } else if (currentTimer === APP_RENDER_STATES.XY && btis === 0) {
-      alert("Please make sure you specify break duration before continuing.")
+    } else if (currentTimer === APP_RENDER_KEYS.XY && btis === 0) {
+      alert("Please make sure you specify break duration before continuing.");
       return;
-    } else if (currentTimer === APP_RENDER_STATES.XY && rounds === 0) {
-      alert("Please make sure you set timer rounds limits before continuing.")
+    } else if (
+      (currentTimer === APP_RENDER_KEYS.XY ||
+        currentTimer === APP_RENDER_KEYS.TABATA) &&
+      rounds === 0
+    ) {
+      alert("Please make sure you set timer rounds limits before continuing.");
       return;
     }
 
     let timeInSeconds = 0;
-    if (currentTimer === APP_RENDER_STATES.COUNTDOWN) {
+    if (currentTimer === APP_RENDER_KEYS.COUNTDOWN) {
       timeInSeconds = tis;
     }
-
-    setTimerStatus("timing");
     setCurrentTime(timeInSeconds);
-    playAudio({ clip: "timing" });
+    setformattedTime(sys.onConvertToTime({ input: timeInSeconds }));
+    setformattedBreakTime(sys.onConvertToTime({ input: btis }));
+    setTimerStatus("timing");
+    playAudio({ clip: APP_AUDIO_CLIP_KEYS.ON_TIMING });
   };
 
   // Any action on reach goal comes here, that is, once the timer reaches
   // it's target value, negative or positive.
   const onReachedGoal = () => {
     setTimerStatus("complete");
-    playAudio({ clip: "onClick" });
+    playAudio({ clip: APP_AUDIO_CLIP_KEYS.ON_REACHED_GOAL });
   };
 
   // Any action on round complete comes here before next render.
   const onCompleteRound = () => {
-    playAudio({ clip: "onClick" });
-  }
+    playAudio({ clip: APP_AUDIO_CLIP_KEYS.ON_COMPLETE_ROUND });
+  };
 
   const onSkipRound = () => {
-    if (currentTimer !== APP_RENDER_STATES.TABATA && currentTimer !== APP_RENDER_STATES.XY) return;
+    if (
+      (currentTimer !== APP_RENDER_KEYS.TABATA &&
+        currentTimer !== APP_RENDER_KEYS.XY) ||
+      rounds <= 0)
+      return;
+
+    const fdTime = sys.onConvertToTime({
+      hours: breakHours,
+      minutes: breakMinutes,
+      seconds: breakSeconds,
+    });
     setRounds(rounds - 1);
-    setWorkflowState(APP_FLOW_STATES.WORKOUT);
+    setWorkflowState(APP_FLOW_KEYS.WORKOUT);
     onCompleteRound();
+    setformattedBreakTime(fdTime);
     setformattedTime(formattedTime);
     setCurrentTime(0);
-  }
+  };
 
   // This hook handles the tick function, and cleanup of interval before next render.
   useEffect(() => {
@@ -157,28 +203,39 @@ const AppProvider = ({ children }) => {
     if (status !== "timing") return;
 
     const timeout = setTimeout(() => {
-      let newTime = (currentTimer === APP_RENDER_STATES.COUNTDOWN) ? currentTime - 1.0 : currentTime + 1.0;
-      
-      // Test and return the right timer based on the APP_RENDER_STATES and APP_FLOW_STATES.
-      // Notice, target time changes based on currentTimer and workflowState.
-      // Also, it's cleaner to manage everything here.
-      const target = 
-      (currentTimer === APP_RENDER_STATES.XY) ? 
-      (workflowState === APP_FLOW_STATES.REST) ? 
-      (sys.onConvertToSeconds({ hours:breakHours, minutes:breakMinutes, seconds:breakSeconds })) : 
-      (sys.onConvertToSeconds({ hours, minutes, seconds })) : 
-      (sys.onConvertToSeconds({ hours, minutes, seconds }));
+      // Should we increment or decrement the count?
+      let newTime =
+        currentTimer === APP_RENDER_KEYS.COUNTDOWN
+          ? currentTime - 1
+          : currentTime + 1;
 
-      // Test if the timer has reached its goal.
-      if (newTime < 0 && currentTimer === APP_RENDER_STATES.COUNTDOWN) {
+      // Test and return the right timer based on the APP_RENDER_KEYS and APP_FLOW_KEYS.
+      // Notice, target time changes based on currentTimer and workflowState.
+      // Also, it's relatively clean to manage everything here.
+      const target =
+        currentTimer === APP_RENDER_KEYS.XY
+          ? workflowState === APP_FLOW_KEYS.REST
+            ? sys.onConvertToSeconds({
+                hours: breakHours,
+                minutes: breakMinutes,
+                seconds: breakSeconds,
+              })
+            : sys.onConvertToSeconds({ hours, minutes, seconds })
+          : sys.onConvertToSeconds({ hours, minutes, seconds });
+
+      // Test if the timer has reached it's goal.
+      if (newTime < 0 && currentTimer === APP_RENDER_KEYS.COUNTDOWN) {
         onReachedGoal();
         return;
-      } else if (newTime >= target && currentTimer === APP_RENDER_STATES.STOPWATCH) {
+      } else if (
+        newTime >= target &&
+        currentTimer === APP_RENDER_KEYS.STOPWATCH
+      ) {
         onReachedGoal();
         return;
-      }  else if (newTime >= target && currentTimer === APP_RENDER_STATES.TABATA) {
-        if (workflowState === APP_FLOW_STATES.WORKOUT) {
-          setWorkflowState(APP_FLOW_STATES.REST);
+      } else if (newTime >= target && currentTimer === APP_RENDER_KEYS.TABATA) {
+        if (workflowState === APP_FLOW_KEYS.WORKOUT) {
+          setWorkflowState(APP_FLOW_KEYS.REST);
           newTime = 0;
         } else if (rounds > 0) {
           setRounds(rounds - 1);
@@ -188,29 +245,32 @@ const AppProvider = ({ children }) => {
           onReachedGoal();
           return;
         }
-        
-      } else if (newTime >= target && currentTimer === APP_RENDER_STATES.XY) {
-        if (workflowState === APP_FLOW_STATES.WORKOUT) {
-          setWorkflowState(APP_FLOW_STATES.REST);
+      } else if (newTime >= target && currentTimer === APP_RENDER_KEYS.XY) {
+        if (workflowState === APP_FLOW_KEYS.WORKOUT) {
+          setWorkflowState(APP_FLOW_KEYS.REST);
           newTime = 0;
         } else if (rounds > 0) {
           setRounds(rounds - 1);
           newTime = 0;
-          setWorkflowState(APP_FLOW_STATES.WORKOUT);
+          setWorkflowState(APP_FLOW_KEYS.WORKOUT);
           onCompleteRound();
         } else {
-          setWorkflowState(APP_FLOW_STATES.WORKOUT);
+          setWorkflowState(APP_FLOW_KEYS.WORKOUT);
           onReachedGoal();
           return;
         }
-        
       }
 
       // Set the display time, which is to be use for display in the digital watch display.
-      const formattedTime = sys.onConvertToTime({ input: newTime });
-
+      const fTime = sys.onConvertToTime({ input: newTime });
+      const fdTime = sys.onConvertToTime({
+        hours: breakHours,
+        minutes: breakMinutes,
+        seconds: breakSeconds,
+      });
       // Set state values for formated time, and new current time.
-      setformattedTime(formattedTime);
+      setformattedTime(fTime);
+      setformattedBreakTime(fdTime);
       setCurrentTime(newTime);
     }, 1000);
 
@@ -223,9 +283,21 @@ const AppProvider = ({ children }) => {
 
     // At this point, I'm only adding additional dependencies to avoid useEffect dependency hell.
     // Will need to review this part of the code.
-    // I do controll executions of this subscription though, on top level. So, this should work.
-  }, [currentTime, status, currentTimer, hours, minutes, seconds, workflowState, rounds, breakHours, breakMinutes, breakSeconds]);
-
+    // I do controll executions of this subscription though, on top level. So, this should only run when
+    // the workflow state is timing.
+  }, [
+    currentTime,
+    status,
+    currentTimer,
+    hours,
+    minutes,
+    seconds,
+    workflowState,
+    rounds,
+    breakHours,
+    breakMinutes,
+    breakSeconds,
+  ]);
 
   // Pass getters and setters down to child components.
   return (
@@ -258,9 +330,12 @@ const AppProvider = ({ children }) => {
         currentTimer,
         setCurrentTimer,
         shouldRender,
-        rounds, 
+        rounds,
         setRounds,
         onSkipRound,
+        interfaceState,
+        setInterfaceState,
+        formattedBreakTime,
       }}
     >
       {children}

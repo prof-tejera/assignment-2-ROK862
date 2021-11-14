@@ -7,8 +7,8 @@ function PauseDisplay () {
   // At this level, i think it is still manage-able. However, you'll be the judge of it :).
   const { formattedTime:displayTime, setTimerStatus:onResumeTimer, onStopTimer:onCloseTimer } = useContext(AppContext);
   return (
-    <div className="Content-Wraper">
-      <div className="StopWatch">{displayTime}</div>
+    <div className="Content-Wrapper">
+      <div className="Stop-Watch">{displayTime}</div>
       <AnchorButton name="Resume Timer" onClick={() => onResumeTimer("timing")} />
       <AnchorButton name="Reset Timer" onClick={onCloseTimer} />
     </div>

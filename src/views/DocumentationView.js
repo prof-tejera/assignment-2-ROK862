@@ -14,14 +14,23 @@ import DisplayWatch from "../components/generic/DigitalWatch";
 import PauseDisplay from "../components/generic/PauseDisplay";
 import TimerDisplay from "../components/generic/TimerDisplay";
 import TimerGoal from "../components/generic/TimerGoal";
+import TimerToolBar from "../components/generic/TimerToolBar";
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 85%;
   overflow: scroll;
   background: white;
+  padding: 5%;
+`;
+
+const Note = styled.div`
+padding: 30px;
+font-weight: 300;
+background: #d2ffd2;
+border-bottom: 2px solid #0085c5;
 `;
 
 const Title = styled.div`
@@ -33,7 +42,13 @@ class Documentation extends React.Component {
     return (
       <Container>
         <div>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
           <Title>Documentation</Title>
+          <br/>
+          <Note><strong>NB</strong>: Due to an upgrade concerned with the way the application handles state, it no longer makes sense to pass props down to some components. Thus, to prevent challenges such as <strong>Props Drilling</strong>, most components access "GLOBAL STATE" values with context directly from the AppProvider. For purposes of clarity, note that this is not the final solution. For accurate state management--rather than directly interacting with the state store from UI code, I reckon using something like <strong><a href="https://react-redux.js.org/introduction/why-use-react-redux">Redux</a></strong>. However, for purposes of this assignment, react <strong><a href="https://reactjs.org/docs/context.html">useContext</a></strong> works well.</Note>
           <DocumentComponent
             title="Loading spinner "
             component={<Loading />}
@@ -81,12 +96,12 @@ class Documentation extends React.Component {
                 prop: "name",
                 description: "Change the title text displayed on the button.",
                 type: "string",
-                defaultValue: "Untitled :(",
+                defaultValue: "Untitled",
               },{
                 prop: "onClick",
                 description: "Button onclick event.",
                 type: "string",
-                defaultValue: "()=>log..default action",
+                defaultValue: "console.log()",
               },
             ]}
           />
@@ -103,12 +118,12 @@ class Documentation extends React.Component {
                 prop: "name",
                 description: "Change the title text displayed on the button.",
                 type: "string",
-                defaultValue: "Untitled :(",
+                defaultValue: "Untitled",
               },{
                 prop: "onClick",
                 description: "Button onclick event.",
                 type: "string",
-                defaultValue: "()=>log..default action",
+                defaultValue: "console.log()",
               },
             ]}
           />
@@ -120,7 +135,7 @@ class Documentation extends React.Component {
                 prop: "name",
                 description: "The label to be displayed next to the select drop down.",
                 type: "string",
-                defaultValue: "Untitled :(",
+                defaultValue: "Untitled",
               },
               {
                 prop: "options",
@@ -359,6 +374,39 @@ class Documentation extends React.Component {
                 prop: "onStopTimer",
                 description: "onStopTimer updates parent state once the Stop Timer button is clicked.",
                 type: "function",
+                defaultValue: "Required",
+              },
+            ]}
+          />
+
+          <DocumentComponent 
+            title="Timer Tool Bar"
+            component={<TimerToolBar />}
+            propDocs={[
+              {
+                prop: "setCurrentTimer",
+                description: "setCurrentTimer updates current timer once user selects a timer to render.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "status",
+                description: "status is required to determin when to disable mouse events. Note, mouse events are disabled once the timer is in a timing state--although swaping timers during this state works, it makes no sence to do so form a functional perspective.",
+                type: "string", 
+                defaultValue: "Required",
+              },{
+                prop: "onSetSeconds",
+                description: "onSetSeconds updates parent state once the seconds drop down changed.",
+                type: "function",
+                defaultValue: "Required",
+              },{
+                prop: "currentTimer",
+                description: "currentTimer is used to test if the timer button should render with selected class appended.",
+                type: "string",
+                defaultValue: "Required",
+              },{
+                prop: "APP_RENDER_KEYS",
+                description: "APP_RENDER_KEYS are used from a global context as a lookup reference to determin which timer is selected, and the associated key value pair to use once updating new timer values once timer is selected.",
+                type: "KEYS in VALUE PAIR",
                 defaultValue: "Required",
               },
             ]}

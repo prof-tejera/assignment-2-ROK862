@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   margin: 20px 0px;
   border-radius: 0px;
   box-shadow: 0px 5px 9px 0px #0000003d;
-  border-bottom: 2px solid #fe6c85;
+  border-bottom: 2px solid #0085c5;
 `;
 
 const Container = styled.div`

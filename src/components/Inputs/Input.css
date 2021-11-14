@@ -17,23 +17,23 @@ select.Default-select {
   font-size: 18px;
 }
 
-.StopWatch label {
+.Stop-Watch label {
   font-size: 12px;
   padding-right: 15px;
 }
 
-.StopWatch label {
+.Stop-Watch label {
     font-size: 12px;
     padding-right: 15px;
 }
 
-.StopWatch {
-    display: inline-block;
-    width: 100%;
-    background: #2a1a52;
+.Stop-Watch {
+  display: inline-block;
+  width: 100%;
+  background: #f9f9f9;
 }
 
-.StopWatch .Option-Wraper {
+.Stop-Watch .Option-Wrapper {
     width: 30%;
     display: inline-block;
 }

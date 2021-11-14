@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# A1-Submission
-A1-Submission
-=======
 # Project Directory:
 - https://rok862.github.io/A1-Submission/
 

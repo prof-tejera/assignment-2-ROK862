@@ -7,7 +7,7 @@ function TimerGoal () {
 
   return (
     <>
-      <div className="Timer-Goal-Wraper">
+      <div className="Timer-Goal-Wrapper">
         <img alt="timer-goal" src="https://raw.githubusercontent.com/prof-tejera/assignment-2-ROK862/main/src/images/goal-reached-animation.gif" />
       </div>
       <AnchorButton name="Reset Timer" onClick={()=>setTimerStatus("active")} />

@@ -7,7 +7,7 @@ import { sys } from "../../utils/helpers";
 class Options extends Component {
   render() {
     return (
-      <div className="Option-Wraper">
+      <div className="Option-Wrapper">
         <label>{this.props.name}</label>
         <select
           onChange={(e) => {
