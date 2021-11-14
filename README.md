@@ -1,5 +1,5 @@
 # Project Directory:
-- https://rok862.github.io/A1-Submission/
+- https://prof-tejera.github.io/assignment-2-ROK862/
 
 # Implementation Notes:
 
