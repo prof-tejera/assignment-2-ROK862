@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { sys } from "../utils/helpers";
+import { _getKey } from "../utils/helpers";
 import { APP_TIMERS } from "../context/settings";
 import { AppContext } from "../context/AppProvider";
 import TimerToolBar from "../components/generic/TimerToolBar";
@@ -58,14 +58,14 @@ function App() {
       <Timers>
           {timers.map((timer, i) =>
             shouldRender({ state: timer.S }) ? (
-              <Timer key={sys.getKey()}>
+              <Timer key={_getKey()}>
                 <TimerToolBar />
-                <TimerTitle key={sys.getKey()}>{timer.title}</TimerTitle>
-                <TimerSubtitle key={sys.getKey()}>{timer.subTitle}</TimerSubtitle>
+                <TimerTitle key={_getKey()}>{timer.title}</TimerTitle>
+                <TimerSubtitle key={_getKey()}>{timer.subTitle}</TimerSubtitle>
                 {timer.C}
               </Timer>
             ) : (
-              <div key={sys.getKey()}></div>
+              <div key={_getKey()}></div>
             )
           )}
       </Timers>

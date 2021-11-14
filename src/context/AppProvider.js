@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { sys } from "../utils/helpers";
+import { _timeToSeconds, _timeToDisplay } from "../utils/helpers";
 import { playAudio } from "../audio/SoundEffect";
 import {
   APP_RENDER_KEYS,
@@ -78,12 +78,12 @@ const AppProvider = ({ children }) => {
   const shouldRender = ({ state }) => currentTimer === state;
 
   useEffect(() => {
-    const fTime = sys.onConvertToTime({
+    const fTime = _timeToDisplay({
       hours,
       minutes,
       seconds,
     });
-    const fdTime = sys.onConvertToTime({
+    const fdTime = _timeToDisplay({
       hours: breakHours,
       minutes: breakMinutes,
       seconds: breakSeconds,
@@ -109,12 +109,12 @@ const AppProvider = ({ children }) => {
 
   // Handle Stop Timer button onclick here.
   const onStopTimer = () => {
-    const fTime = sys.onConvertToTime({
+    const fTime = _timeToDisplay({
       hours,
       minutes,
       seconds,
     });
-    const fdTime = sys.onConvertToTime({
+    const fdTime = _timeToDisplay({
       hours: breakHours,
       minutes: breakMinutes,
       seconds: breakSeconds,
@@ -129,9 +129,9 @@ const AppProvider = ({ children }) => {
   // Handle start timing button onclick here.
   const onStartTiming = () => {
     // Time in seconds for main timer
-    const tis = sys.onConvertToSeconds({ hours, minutes, seconds });
+    const tis = _timeToSeconds({ hours, minutes, seconds });
     // Time in seconds for break timer.
-    const btis = sys.onConvertToSeconds({
+    const btis = _timeToSeconds({
       hours: breakHours,
       minutes: breakMinutes,
       seconds: breakSeconds,
@@ -158,8 +158,8 @@ const AppProvider = ({ children }) => {
       timeInSeconds = tis;
     }
     setCurrentTime(timeInSeconds);
-    setformattedTime(sys.onConvertToTime({ input: timeInSeconds }));
-    setformattedBreakTime(sys.onConvertToTime({ input: btis }));
+    setformattedTime(_timeToDisplay({ input: timeInSeconds }));
+    setformattedBreakTime(_timeToDisplay({ input: btis }));
     setTimerStatus("timing");
     playAudio({ clip: APP_AUDIO_CLIP_KEYS.ON_TIMING });
   };
@@ -183,7 +183,7 @@ const AppProvider = ({ children }) => {
       rounds <= 0)
       return;
 
-    const fdTime = sys.onConvertToTime({
+    const fdTime = _timeToDisplay({
       hours: breakHours,
       minutes: breakMinutes,
       seconds: breakSeconds,
@@ -215,13 +215,13 @@ const AppProvider = ({ children }) => {
       const target =
         currentTimer === APP_RENDER_KEYS.XY
           ? workflowState === APP_FLOW_KEYS.REST
-            ? sys.onConvertToSeconds({
+            ? _timeToSeconds({
                 hours: breakHours,
                 minutes: breakMinutes,
                 seconds: breakSeconds,
               })
-            : sys.onConvertToSeconds({ hours, minutes, seconds })
-          : sys.onConvertToSeconds({ hours, minutes, seconds });
+            : _timeToSeconds({ hours, minutes, seconds })
+          : _timeToSeconds({ hours, minutes, seconds });
 
       // Test if the timer has reached it's goal.
       if (newTime < 0 && currentTimer === APP_RENDER_KEYS.COUNTDOWN) {
@@ -262,8 +262,8 @@ const AppProvider = ({ children }) => {
       }
 
       // Set the display time, which is to be use for display in the digital watch display.
-      const fTime = sys.onConvertToTime({ input: newTime });
-      const fdTime = sys.onConvertToTime({
+      const fTime = _timeToDisplay({ input: newTime });
+      const fdTime = _timeToDisplay({
         hours: breakHours,
         minutes: breakMinutes,
         seconds: breakSeconds,

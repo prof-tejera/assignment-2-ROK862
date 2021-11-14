@@ -48,7 +48,7 @@ class Documentation extends React.Component {
           <br/>
           <Title>Documentation</Title>
           <br/>
-          <Note><strong>NB</strong>: Due to an upgrade concerned with the way the application handles state, it no longer makes sense to pass props down to some components. Thus, to prevent challenges such as <strong>Props Drilling</strong>, most components access "GLOBAL STATE" values with context directly from the AppProvider. For purposes of clarity, note that this is not the final solution. For accurate state management--rather than directly interacting with the state store from UI code, I reckon using something like <strong><a href="https://react-redux.js.org/introduction/why-use-react-redux">Redux</a></strong>. However, for purposes of this assignment, react <strong><a href="https://reactjs.org/docs/context.html">useContext</a></strong> works well.</Note>
+          <Note><strong>NB</strong>: Due to an upgrade concerned with the way the application handles state, it no longer makes sense to pass certain props values down to some components. Thus, to prevent challenges such as <strong>Props Drilling, or State Hoisting</strong>, most components access certain "GLOBAL STATE" values with context directly from the <strong><a href="https://github.com/prof-tejera/assignment-2-ROK862/blob/main/src/context/AppProvider.js">AppProvider</a></strong>.  For purposes of clarity, note that this is not the ultimate solution. For accurate state management--rather than directly interacting with the state store from UI code, I reckon using something like <strong><a href="https://react-redux.js.org/introduction/why-use-react-redux">Redux</a></strong>. However, for purposes of this assignment, react <strong><a href="https://reactjs.org/docs/context.html">useContext</a></strong> works well.</Note>
           <DocumentComponent
             title="Loading spinner "
             component={<Loading />}
@@ -68,7 +68,7 @@ class Documentation extends React.Component {
               {
                 prop: "onChange",
                 description: "onChange event handler passed down from parent component.",
-                type: "string",
+                type: "function",
                 defaultValue: "Required",
               },{
                 prop: "className",
@@ -100,7 +100,7 @@ class Documentation extends React.Component {
               },{
                 prop: "onClick",
                 description: "Button onclick event.",
-                type: "string",
+                type: "function",
                 defaultValue: "console.log()",
               },
             ]}
@@ -122,7 +122,7 @@ class Documentation extends React.Component {
               },{
                 prop: "onClick",
                 description: "Button onclick event.",
-                type: "string",
+                type: "function",
                 defaultValue: "console.log()",
               },
             ]}
@@ -140,13 +140,13 @@ class Documentation extends React.Component {
               {
                 prop: "options",
                 description: "An array object used to generate selectable options.",
-                type: "string",
+                type: "array",
                 defaultValue: "['Choose an Option']",
               },
               {
                 prop: "onChange",
                 description: "onChange event handler passed down from parent component.",
-                type: "string",
+                type: "function",
                 defaultValue: "Required",
               },
             ]}
@@ -405,8 +405,8 @@ class Documentation extends React.Component {
                 defaultValue: "Required",
               },{
                 prop: "APP_RENDER_KEYS",
-                description: "APP_RENDER_KEYS are used from a global context as a lookup reference to determin which timer is selected, and the associated key value pair to use once updating new timer values once timer is selected.",
-                type: "KEYS in VALUE PAIR",
+                description: "APP_RENDER_KEYS is an associative array which is access from a AppProvider with context as a lookup reference to determin which timer is selected, and the associated key value pair to use once updating new timer values once timer is selected.",
+                type: "array",
                 defaultValue: "Required",
               },
             ]}

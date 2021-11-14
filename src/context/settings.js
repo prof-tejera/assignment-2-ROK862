@@ -35,14 +35,14 @@ export const APP_ICON_KEYS = {
 export const APP_AUDIO = {
   VOLUME: 0.05,
   CLIPS: {
-    ON_START_TIMER: `${server}main/src/audio/goalVolume01.mp3`,
+    ON_START_TIMER: `${server}main/src/audio/TimerStartVolume01.mp3`,
     ON_CLICK: `${server}main/src/audio/goalVolume02.mp3`,
-    ON_PAUSE: `${server}main/src/audio/goalVolume03.mp3`,
-    ON_TIMING: `${server}main/src/audio/goalVolume01.mp3`,
-    ON_STOP_TIMER: `${server}main/src/audio/goalVolume01.mp3`,
+    ON_PAUSE: `${server}main/src/audio/TimerPauseVolume01.mp3`,
+    ON_TIMING: `${server}main/src/audio/TimerTimingVolume01.mp3`,
+    ON_STOP_TIMER: `${server}main/src/audio/TimerPauseVolume01.mp3`,
     DEFAULT: `${server}main/src/audio/goalVolume01.mp3`,
-    ON_REACHED_GOAL: `${server}main/src/audio/goalVolume01.mp3`,
-    ON_COMPLETE_ROUND: `${server}main/src/audio/goalVolume01.mp3`
+    ON_REACHED_GOAL: `${server}main/src/audio/goalVolume02.mp3`,
+    ON_COMPLETE_ROUND: `${server}main/src/audio/goalVolume03.mp3`
   }
 }
 

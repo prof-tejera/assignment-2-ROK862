@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "./Input.css";
-import { sys } from "../../utils/helpers";
+import { _getKey } from "../../utils/helpers";
 
 
 // TODO: Convert to functional component.
@@ -18,7 +18,7 @@ class Options extends Component {
         >
           {(this.props.options || ["Nothing found"]).map((e, i) => {
             return (
-              <option key={sys.getKey()} value={e}>
+              <option key={_getKey()} value={e}>
                 {e}
               </option>
             );

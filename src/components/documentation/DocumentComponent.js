@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { sys } from "../../utils/helpers";
+import { _getKey } from "../../utils/helpers";
 
 const Wrapper = styled.div`
   border: 1px solid #dddddd;
@@ -38,26 +38,26 @@ const Documentation = styled.table``;
 class DocumentComponent extends React.Component {
   render() {
     return (
-      <Wrapper key={sys.getKey()}>
-        <Title key={sys.getKey()}>{this.props.title}</Title>
-        <Container key={sys.getKey()}>
-          <RenderComponent key={sys.getKey()}>{this.props.component}</RenderComponent>
-          <Documentation key={sys.getKey()}>
+      <Wrapper key={_getKey()}>
+        <Title key={_getKey()}>{this.props.title}</Title>
+        <Container key={_getKey()}>
+          <RenderComponent key={_getKey()}>{this.props.component}</RenderComponent>
+          <Documentation key={_getKey()}>
             <tbody>
-            <tr key={sys.getKey()}>
-              <th key={sys.getKey()}>Prop</th>
-              <th key={sys.getKey()}>Description</th>
-              <th key={sys.getKey()}>Type</th>
-              <th key={sys.getKey()}>Default value</th>
+            <tr key={_getKey()}>
+              <th key={_getKey()}>Prop</th>
+              <th key={_getKey()}>Description</th>
+              <th key={_getKey()}>Type</th>
+              <th key={_getKey()}>Default value</th>
             </tr>
             {this.props.propDocs.map((doc) => {
               return (
-                <tr key={sys.getKey()}>
-                  <td key={sys.getKey()}>{doc.prop}</td>
-                  <td key={sys.getKey()}>{doc.description}</td>
-                  <td key={sys.getKey()}>{doc.type}</td>
-                  <td key={sys.getKey()}>
-                    <code key={sys.getKey()}>{doc.defaultValue}</code>
+                <tr key={_getKey()}>
+                  <td key={_getKey()}>{doc.prop}</td>
+                  <td key={_getKey()}>{doc.description}</td>
+                  <td key={_getKey()}>{doc.type}</td>
+                  <td key={_getKey()}>
+                    <code key={_getKey()}>{doc.defaultValue}</code>
                   </td>
                 </tr>
               );

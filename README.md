@@ -28,6 +28,10 @@ Modular/reusable styles (DRY)
 - All url based resourses are referenced from github.
 
 
+## Sources:
+- Sound effects: https://app.soundstripe.com/
+- License: All plans include unlimited licensing, Full access to Adobe Premiere Pro, Twitch & Frame.io extensions, and top-notch Customer Support.
+
 # Objective
 In this assignment, we will start using the foundation we lay in A1 and make our timers fully functional. Each timer will function as described in A1 and the user flow should be the following:
 
