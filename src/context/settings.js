@@ -16,14 +16,13 @@ export const APP_RENDER_KEYS = {
   XY: "XY",
 };
 
-// Application icons keys. Quick way to manage icons used through out the
+// Application icons values. Quick way to manage icons used through out the
 // application.
 export const APP_ICONS = {
   SETTINGS: <AiOutlineSetting />,
   START_TIMER: <AiOutlineFieldTime />,
   BACK: <AiOutlineRollback />,
 };
-
 // Reference to application icon keys.
 export const APP_ICON_KEYS = {
   SETTINGS: "SETTINGS",
