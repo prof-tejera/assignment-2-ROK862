@@ -1,11 +1,43 @@
+# Project Directory:
+- https://prof-tejera.github.io/assignment-2-ROK862/
+
+# Implementation Notes:
+
+## 4 Timers
+- Fixed bugs and simplified timers by breaking code into smaller functional components. Also, since state values are managed with context, smaller components don't rely on parent timer components for passing values back and forth.
+## Consistent UI
+
+- Changed ui input for rounds to Options. Thus, limits are specific to the arrray of inputs--numbers only, zero to 29.
+- Timer input validation is hendled by AppProvider, and doesnt allow invalid inputs.
+
+- Removed background image--in preference to simple ui with white background.
+- Validation prevents APP from starting without round input > 0.
+- Fixed naming convension and documentation issues.
+- Tabata select explicitly lables the timer imput value.
+
+repeated titles say Loading spinner
+not sure whats the difference between an Action button and an Anchor button - these can be condensed into one component
+missing several components from documentation"
+in the docs, a lot of types are set as string, handlers should be functions, collections should be arrays, etc
+none of the components have proptypes in the code"
+Modular/reusable styles (DRY)
+
+## DRY Implementation of components.
+- All components are implemented with DRY in mind.
+- All third-party libraries have been depricated, if not removed--completely.
+- All url based resourses are referenced from github.
+
+
+## Sources:
+- Sound effects: https://app.soundstripe.com/
+- License: All plans include unlimited licensing, Full access to Adobe Premiere Pro, Twitch & Frame.io extensions, and top-notch Customer Support.
+
 # Objective
 In this assignment, we will start using the foundation we lay in A1 and make our timers fully functional. Each timer will function as described in A1 and the user flow should be the following:
 
 - User opens the application
 - Select a type of timer (Stopwatch, Countdown, XY, TABATA)
-
 - Configure timer based on type (time, rounds, work/rest, etc)
-
 - Run timer. While running, user should be able to:
   - Pause/Resume
   - When paused, user can reset back to initial state
@@ -56,3 +88,4 @@ For people looking for an additional challenge, we have provided some bonus feat
 As you have noticed this repository is empty. To begin this assignment you must copy over all of our files from A1 into this repo. I recommend not copying over `node_modules` and instead re-install here. You can then commit and deploy as usual from this repo.
 
 
+>>>>>>> aa0ee8ba937592ca4126ba81b2f3a636151f2fca
